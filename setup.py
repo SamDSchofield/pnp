@@ -57,7 +57,7 @@ class CMakeBuild(build_ext):
             '-DCMAKE_BUILD_TYPE=' + build_type,
             '-DBUILD_SHARED_LIBS=OFF',
             '-DCMAKE_POSITION_INDEPENDENT_CODE=ON',
-            '-DCMAKE_WITH_PYBIND11=ON'
+            '-DWITH_PYBIND11=ON'
         ]
 
         if not os.path.exists(self.build_temp):
