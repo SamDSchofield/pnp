@@ -43,7 +43,8 @@ class CMakeBuild(build_ext):
             extdir += os.path.sep
 
         build_type = os.environ.get('BUILD_TYPE', 'Release')
-        build_args = ['--config', build_type]
+        build_args = []
+        # build_args = ['--config', build_type]
         print(extdir)
 
         cmake_args = [
@@ -56,6 +57,7 @@ class CMakeBuild(build_ext):
             '-DCMAKE_BUILD_TYPE=' + build_type,
             '-DBUILD_SHARED_LIBS=OFF',
             '-DCMAKE_POSITION_INDEPENDENT_CODE=ON',
+            '-DCMAKE_WITH_PYBIND11=ON'
         ]
 
         if not os.path.exists(self.build_temp):
@@ -63,6 +65,7 @@ class CMakeBuild(build_ext):
 
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp)
         subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
+        subprocess.check_call(['make'] + build_args, cwd=self.build_temp)
 
 
 setup(
